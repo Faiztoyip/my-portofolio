@@ -1,12 +1,10 @@
 import React from "react";
 import { Code, Award, ExternalLink } from "lucide-react";
 
-// Path impor diperbaiki sesuai struktur folder Anda:
-import { projectsData } from "../projectsData";
-import { certificatesData } from "../data/certificatesData";
+import { projectsData } from "../data/projectsData";
+import { certificatesData } from "../data/certificatesData"; 
 
 export default function Stats() {
-  // Ambil jumlah data dari array lokal
   const projectCount = Array.isArray(projectsData) ? projectsData.length : 0;
   const certCount = Array.isArray(certificatesData) ? certificatesData.length : 0;
 
