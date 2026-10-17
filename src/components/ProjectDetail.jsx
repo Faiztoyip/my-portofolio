@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Swal from "sweetalert2";
 import { toSlug } from "../utils/slug";
+import { projectsData } from "../data/projectsData";
 
 const TECH_ICONS = {
   React: Globe,
@@ -118,7 +119,7 @@ const handleGithubClick = (githubLink) => {
   return true;
 };
 
-const ProjectDetails = () => {
+const ProjectDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [project, setProject] = useState(null);
@@ -126,10 +127,10 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    // Cari project berdasarkan slug yang di-generate dari Title
-    const selectedProject = storedProjects.find(
-      (p) => toSlug(p.Title) === slug,
+
+    // Cari project berdasarkan slug langsung dari file lokal projectsData.js
+    const selectedProject = projectsData.find(
+      (p) => toSlug(p.Title) === slug
     );
 
     if (selectedProject) {
@@ -137,7 +138,7 @@ const ProjectDetails = () => {
         ...selectedProject,
         Features: selectedProject.Features || [],
         TechStack: selectedProject.TechStack || [],
-        Github: selectedProject.Github || "https://github.com/EkiZR",
+        Github: selectedProject.Github || "https://github.com/Faiztoyip",
       };
       setProject(enhancedProject);
     }
@@ -156,25 +157,25 @@ const ProjectDetails = () => {
     );
   }
 
-  const projectUrl = `https://ekizr.com/project/${toSlug(project.Title)}`;
+  const projectUrl = `https://faiz.com/project/${toSlug(project.Title)}`;
 
   return (
     <>
       <Helmet>
-        <title>{project.Title} — Eki Zulfar Rachman</title>
+        <title>{project.Title} — Ahmad Fa'iz</title>
         <meta
           name="description"
           content={
             project.Description
               ? project.Description.slice(0, 155)
-              : `Project ${project.Title} oleh Eki Zulfar Rachman — Frontend Web Developer.`
+              : `Project ${project.Title} oleh Ahmad Fa'iz — Data Analyst.`
           }
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={projectUrl} />
         <meta
           property="og:title"
-          content={`${project.Title} — Eki Zulfar Rachman`}
+          content={`${project.Title} — Ahmad Fa'iz`}
         />
         <meta
           property="og:description"
@@ -192,8 +193,8 @@ const ProjectDetails = () => {
             "url": "${projectUrl}",
             "author": {
               "@type": "Person",
-              "name": "Eki Zulfar Rachman",
-              "url": "https://ekizr.com"
+              "name": "Ahmad Fa'iz",
+              "url": "https://faiz.com"
             }
           }
         `}</script>
@@ -393,4 +394,4 @@ const ProjectDetails = () => {
   );
 };
 
-export default ProjectDetails;
+export default ProjectDetail;

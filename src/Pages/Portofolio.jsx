@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
 
-import { supabase } from "../supabase"; 
-
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -15,8 +13,9 @@ import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Certificate from "../components/Certificate";
-import { Code, Award, Boxes } from "lucide-react";
-
+import { Code, Award, Cpu, Users } from "lucide-react";
+import { projectsData } from "../data/projectsData";
+import { certificatesData } from "../data/certificatesData";
 
 const ToggleButton = ({ onClick, isShowingMore }) => (
   <button
@@ -70,7 +69,6 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
   </button>
 );
 
-
 function TabPanel({ children, value, index, ...other }) {
   return (
     <div
@@ -102,20 +100,29 @@ function a11yProps(index) {
   };
 }
 
-// techStacks tetap sama
-const techStacks = [
+const hardSkills = [
   { icon: "html.svg", language: "HTML" },
   { icon: "css.svg", language: "CSS" },
   { icon: "javascript.svg", language: "JavaScript" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "vite.svg", language: "Vite" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "MUI.svg", language: "Material UI" },
-  { icon: "vercel.svg", language: "Vercel" },
-  { icon: "SweetAlert.svg", language: "SweetAlert2" },
+  { icon: "python.svg", language: "Python" },
+  { icon: "google-colab.svg", language: "Google Colab" },
+  { icon: "mysql-logo.svg", language: "Mysql"},
+  { icon: "Matplotlib.svg", language: "Matplotib" },
+  { icon: "Pandas.svg.webp", language: "Pandas" },
+  { icon: "Cleaning-Data.png", language: "Cleaning Data" },
+  { icon: "Machine-Learning.png", language: "Machine Learning" },
+  { icon: "Data Preprocessing.png", language: "Data Preprocessing" },
+  { icon: "numpy.svg", language: "NumPy" },
+  { icon: "microsoft-excel.webp", language: "Microsoft Excel" },
+];
+
+const softSkills = [
+  { title: "Problem Solving", desc: "Mampu menganalisis masalah kompleks dan mencari solusi efektif secara sistematis." },
+  { title: "Teamwork & Collaboration", desc: "Bisa bekerja sama dengan baik dalam tim lintas fungsi untuk mencapai tujuan bersama." },
+  { title: "Communication", desc: "Menyampaikan informasi teknis maupun non-teknis secara jelas dan terstruktur." },
+  { title: "Time Management", desc: "Mengelola waktu dan tenggat waktu proyek secara disiplin dan terorganisir." },
+  { title: "Adaptability", desc: "Cepat beradaptasi dengan teknologi baru, lingkungan kerja, dan perubahan kebutuhan." },
+  { title: "Critical Thinking", desc: "Berpikir kritis dalam mengevaluasi data, kode, atau strategi pengembangan." },
 ];
 
 export default function FullWidthTabs() {
@@ -134,51 +141,10 @@ export default function FullWidthTabs() {
     });
   }, []);
 
-
-  const fetchData = useCallback(async () => {
-    try {
-      // Mengambil data dari Supabase secara paralel
-      const [projectsResponse, certificatesResponse] = await Promise.all([
-        supabase.from("projects").select("*").order('id', { ascending: false }),
-        supabase.from("certificates").select("*").order('id', { ascending: false }), 
-      ]);
-
-      // Error handling untuk setiap request
-      if (projectsResponse.error) throw projectsResponse.error;
-      if (certificatesResponse.error) throw certificatesResponse.error;
-
-      // Supabase mengembalikan data dalam properti 'data'
-      const projectData = projectsResponse.data || [];
-      const certificateData = certificatesResponse.data || [];
-
-      setProjects(projectData);
-      setCertificates(certificateData);
-
-      // Store in localStorage (fungsionalitas ini tetap dipertahankan)
-      localStorage.setItem("projects", JSON.stringify(projectData));
-      localStorage.setItem("certificates", JSON.stringify(certificateData));
-      
-      // Dispatch custom event to notify other components (like About)
-      window.dispatchEvent(new Event("portfolioDataUpdated"));
-    } catch (error) {
-      console.error("Error fetching data from Supabase:", error.message);
-    }
-  }, []);
-
-
-
   useEffect(() => {
-    // Coba ambil dari localStorage dulu untuk laod lebih cepat
-    const cachedProjects = localStorage.getItem('projects');
-    const cachedCertificates = localStorage.getItem('certificates');
-
-    if (cachedProjects && cachedCertificates) {
-        setProjects(JSON.parse(cachedProjects));
-        setCertificates(JSON.parse(cachedCertificates));
-    }
-    
-    fetchData(); // Tetap panggil fetchData untuk sinkronisasi data terbaru
-  }, [fetchData]);
+    setProjects(projectsData);
+    setCertificates(certificatesData);
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -195,10 +161,8 @@ export default function FullWidthTabs() {
   const displayedProjects = showAllProjects ? projects : projects.slice(0, initialItems);
   const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
 
-  // Sisa dari komponen (return statement) tidak ada perubahan
   return (
     <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" id="Portofolio">
-      {/* Header section - unchanged */}
       <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
         <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
           <span style={{
@@ -218,7 +182,6 @@ export default function FullWidthTabs() {
       </div>
 
       <Box sx={{ width: "100%" }}>
-        {/* AppBar and Tabs section - unchanged */}
         <AppBar
           position="static"
           elevation={0}
@@ -242,7 +205,6 @@ export default function FullWidthTabs() {
           }}
           className="md:px-4"
         >
-          {/* Tabs remain unchanged */}
           <Tabs
             value={value}
             onChange={handleChange}
@@ -252,14 +214,14 @@ export default function FullWidthTabs() {
             sx={{
               minHeight: "70px",
               "& .MuiTab-root": {
-                fontSize: { xs: "0.9rem", md: "1rem" },
+                fontSize: { xs: "0.8rem", md: "0.95rem" },
                 fontWeight: "600",
                 color: "#94a3b8",
                 textTransform: "none",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                padding: "20px 0",
+                padding: "15px 0",
                 zIndex: 1,
-                margin: "8px",
+                margin: "6px",
                 borderRadius: "12px",
                 "&:hover": {
                   color: "#ffffff",
@@ -282,24 +244,29 @@ export default function FullWidthTabs() {
                 height: 0,
               },
               "& .MuiTabs-flexContainer": {
-                gap: "8px",
+                gap: "4px",
               },
             }}
           >
             <Tab
-              icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
+              icon={<Code className="mb-1.5 w-4 h-4 md:w-5 md:h-5 transition-all duration-300" />}
               label="Projects"
               {...a11yProps(0)}
             />
             <Tab
-              icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
+              icon={<Award className="mb-1.5 w-4 h-4 md:w-5 md:h-5 transition-all duration-300" />}
               label="Certificates"
               {...a11yProps(1)}
             />
             <Tab
-              icon={<Boxes className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Tech Stack"
+              icon={<Cpu className="mb-1.5 w-4 h-4 md:w-5 md:h-5 transition-all duration-300" />}
+              label="Hard Skills"
               {...a11yProps(2)}
+            />
+            <Tab
+              icon={<Users className="mb-1.5 w-4 h-4 md:w-5 md:h-5 transition-all duration-300" />}
+              label="Soft Skills"
+              {...a11yProps(3)}
             />
           </Tabs>
         </AppBar>
@@ -309,6 +276,7 @@ export default function FullWidthTabs() {
           index={value}
           onChangeIndex={setValue}
         >
+          {/* Tab 0: Projects */}
           <TabPanel value={value} index={0} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
@@ -339,16 +307,17 @@ export default function FullWidthTabs() {
             )}
           </TabPanel>
 
+          {/* Tab 1: Certificates */}
           <TabPanel value={value} index={1} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4 w-full">
                 {displayedCertificates.map((certificate, index) => (
                   <div
                     key={certificate.id || index}
                     data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                     data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
                   >
-                    <Certificate ImgSertif={certificate.Img} />
+                    <Certificate ImgSertif={certificate.Img} Title={certificate.Title} />
                   </div>
                 ))}
               </div>
@@ -363,16 +332,42 @@ export default function FullWidthTabs() {
             )}
           </TabPanel>
 
+          {/* Tab 2: Hard Skills */}
           <TabPanel value={value} index={2} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
-                {techStacks.map((stack, index) => (
-                  <div
-                    key={index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+              {/* Menggunakan flexbox wrapping agar item terakhir otomatis berada di tengah */}
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-6xl">
+                {hardSkills.map((stack, index) => (
+                  <div 
+                    key={index} 
+                    data-aos="fade-up" 
+                    data-aos-duration="1000"
+                    className="flex justify-center"
                   >
                     <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </TabPanel>
+
+          {/* Tab 3: Soft Skills */}
+          <TabPanel value={value} index={3} dir={theme.direction}>
+            <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
+                {softSkills.map((skill, index) => (
+                  <div
+                    key={index}
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    className="p-6 bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-lg border border-white/10 rounded-2xl shadow-xl hover:border-purple-500/50 transition-all duration-300 group"
+                  >
+                    <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent mb-2">
+                      {skill.title}
+                    </h3>
+                    <p className="text-gray-300/80 text-sm leading-relaxed">
+                      {skill.desc}
+                    </p>
                   </div>
                 ))}
               </div>
