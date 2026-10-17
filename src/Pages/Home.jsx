@@ -4,6 +4,20 @@ import { Github, Linkedin, Mail, ExternalLink, Instagram, Sparkles } from "lucid
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
+import Stats from "./components/Stats";
+
+function App() {
+  return (
+    <div>
+      {/* ...komponen lain seperti Home / Header... */}
+
+      <Stats />
+
+      {/* ...komponen Portofolio / Footer... */}
+    </div>
+  );
+}
+
 const StatusBadge = memo(() => (
   <div className="inline-block animate-float lg:mx-0" data-aos="zoom-in" data-aos-delay="400">
     <div className="relative group">
