@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback, memo } from "react"
-import { Helmet } from "react-helmet-async"
-import { Github, Linkedin, Mail, ExternalLink, Instagram, Sparkles } from "lucide-react"
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+import React, { useState, useEffect, useCallback, memo } from "react";
+import { Helmet } from "react-helmet-async";
+import { Github, Linkedin, Mail, ExternalLink, Instagram, Sparkles } from "lucide-react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-import Stats from "./components/Stats";
+// 1. DEKLARASIKAN SEMUA KOMPONEN PEMBANTU DI ATAS TERLEBIH DAHULU
 
-// Pindahkan StatusBadge ke sini agar terbaca dengan benar
 const StatusBadge = memo(() => (
   <div className="inline-block animate-float lg:mx-0" data-aos="zoom-in" data-aos-delay="400">
     <div className="relative group">
@@ -27,14 +26,14 @@ const MainTitle = memo(() => (
       <span className="relative inline-block">
         <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-2xl opacity-20"></span>
         <span className="relative bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-        Ahmad Fa'iz, 
+          Ahmad Fa'iz, 
         </span>
       </span>
       <br />
       <span className="relative inline-block mt-2">
         <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-2xl opacity-20"></span>
         <span className="relative bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent">
-        S.Kom  
+          S.Kom  
         </span>
       </span>
     </h1>
@@ -66,8 +65,7 @@ const CTAButton = memo(({ href, text, icon: Icon }) => (
 
 const SocialLink = memo(({ icon: Icon, link, label }) => (
   <a href={link} target="_blank" rel="noopener noreferrer" aria-label={label}>
-    <button className="group relative p-3"
-      aria-label={label}>
+    <button className="group relative p-3" aria-label={label}>
       <div className="absolute inset-0 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
       <div className="relative rounded-xl bg-black/50 backdrop-blur-xl p-2 flex items-center justify-center border border-white/10 group-hover:border-white/20 transition-all duration-300">
         <Icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
@@ -87,13 +85,15 @@ const SOCIAL_LINKS = [
   { icon: Instagram, link: "https://www.instagram.com/faiztoyipp/", label: "Instagram Profile" }
 ];
 
+// 2. KOMPONEN UTAMA (HOME) DIPANGGIL SETELAH SEMUA KOMPONEN PEMBANTU TERDEFINISI
+
 const Home = () => {
-  const [text, setText] = useState("")
-  const [isTyping, setIsTyping] = useState(true)
-  const [wordIndex, setWordIndex] = useState(0)
-  const [charIndex, setCharIndex] = useState(0)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
+  const [text, setText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const initAOS = () => {
@@ -151,20 +151,6 @@ const Home = () => {
         <meta property="og:description" content="Website resmi dan portofolio Ahmad Fa'iz, Data Analyst & Web Developer." />
         <meta property="og:url" content="https://faiz.com" />
         <meta property="og:type" content="website" />
-        <script type="application/ld+json">{`
-          {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Ahmad Fa'iz",
-            "jobTitle": "Data Analyst",
-            "url": "https://faiz.com",
-            "sameAs": [
-              "https://github.com/Faiztoyip",
-              "https://www.linkedin.com/in/ahmad-fa-iz",
-              "https://www.instagram.com/faiztoyipp/"
-            ]
-          }
-        `}</script>
       </Helmet>
 
       <div className="min-h-screen bg-[#030014] overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%]" id="Home">
