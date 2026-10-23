@@ -29,7 +29,7 @@ export const projectsData = [
     ]
   },
   {
-    id: 2,
+    id: 3,
     Title: "AC Production Performance Analysis",
     Description: "Analisis data mendalam terkait performa lini produksi dan kualitas manufaktur pendingin udara (AC) untuk meningkatkan efisiensi.",
     Img: "/project3.jpg",
