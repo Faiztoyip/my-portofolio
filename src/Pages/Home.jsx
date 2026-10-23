@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet-async";
 import { Github, Linkedin, Mail, ExternalLink, Instagram, Sparkles } from "lucide-react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Stats from "../components/Stats"; // <-- 1. Impor komponen Stats di sini
 
 // 1. DEKLARASIKAN SEMUA KOMPONEN PEMBANTU DI ATAS TERLEBIH DAHULU
 
@@ -85,6 +84,8 @@ const SOCIAL_LINKS = [
   { icon: Linkedin, link: "https://www.linkedin.com/in/ahmad-fa-iz", label: "LinkedIn Profile" },
   { icon: Instagram, link: "https://www.instagram.com/faiztoyipp/", label: "Instagram Profile" }
 ];
+
+// 2. KOMPONEN UTAMA (HOME) DIPANGGIL SETELAH SEMUA KOMPONEN PEMBANTU TERDEFINISI
 
 const Home = () => {
   const [text, setText] = useState("");
@@ -178,11 +179,6 @@ const Home = () => {
                     data-aos-delay="1000">
                     Lulusan S1 Teknik Informatika Universitas Semarang yang berfokus pada analisis data, pemodelan, dan pengembangan solusi digital.
                   </p>
-
-                  {/* 2. PANGGIL KOMPONEN STATS DI SINI */}
-                  <div data-aos="fade-up" data-aos-delay="1100">
-                    <Stats />
-                  </div>
 
                   {/* Tech Stack */}
                   <div className="flex flex-wrap gap-3 justify-start" data-aos="fade-up" data-aos-delay="1200">
