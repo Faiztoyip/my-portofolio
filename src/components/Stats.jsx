@@ -4,9 +4,9 @@ import { certificatesData } from "../data/certificatesData";
 import { Code, Award, Globe } from "lucide-react";
 
 export default function Stats() {
-  // Langsung hitung jumlah item dari data array
-  const totalProjects = projectsData ? projectsData.length : 0;
-  const totalCertificates = certificatesData ? certificatesData.length : 0;
+  // Ambil langsung panjang array dari file data
+  const totalProjects = projectsData ? projectsData.length : 3;
+  const totalCertificates = certificatesData ? certificatesData.length : 8;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
@@ -17,7 +17,7 @@ export default function Stats() {
             <Code className="w-8 h-8" />
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-400 uppercase tracking-wider">Total Projects</p>
+            <p className="text-sm font-medium text-slate-400 uppercase tracking-wider">TOTAL PROJECTS</p>
             <h3 className="text-3xl font-bold text-white mt-1">{totalProjects}</h3>
             <p className="text-xs text-slate-500 mt-1">Innovative web solutions crafted</p>
           </div>
@@ -31,7 +31,7 @@ export default function Stats() {
             <Award className="w-8 h-8" />
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-400 uppercase tracking-wider">Certificates</p>
+            <p className="text-sm font-medium text-slate-400 uppercase tracking-wider">CERTIFICATES</p>
             <h3 className="text-3xl font-bold text-white mt-1">{totalCertificates}</h3>
             <p className="text-xs text-slate-500 mt-1">Professional skills validated</p>
           </div>
@@ -45,7 +45,7 @@ export default function Stats() {
             <Globe className="w-8 h-8" />
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-400 uppercase tracking-wider">Years of Experience</p>
+            <p className="text-sm font-medium text-slate-400 uppercase tracking-wider">YEARS OF EXPERIENCE</p>
             <h3 className="text-3xl font-bold text-white mt-1">4</h3>
             <p className="text-xs text-slate-500 mt-1">Continuous learning journey</p>
           </div>
