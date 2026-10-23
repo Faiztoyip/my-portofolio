@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -131,6 +130,7 @@ export default function FullWidthTabs() {
   const [certificates, setCertificates] = useState([]);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
+
   const isMobile = window.innerWidth < 768;
   const initialItems = isMobile ? 4 : 6;
 
@@ -143,6 +143,16 @@ export default function FullWidthTabs() {
   useEffect(() => {
     setProjects(projectsData);
     setCertificates(certificatesData);
+  }, []);
+
+  useEffect(() => {
+    const handleSetTab = (e) => {
+      if (typeof e.detail === 'number') {
+        setValue(e.detail);
+      }
+    };
+    window.addEventListener("setActiveTab", handleSetTab);
+    return () => window.removeEventListener("setActiveTab", handleSetTab);
   }, []);
 
   const handleChange = (event, newValue) => {
