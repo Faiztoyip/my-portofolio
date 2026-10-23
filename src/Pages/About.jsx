@@ -2,8 +2,6 @@ import React, { useEffect, useState, memo, useMemo } from "react"
 import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { projectsData } from "../data/projectsData"
-import { certificatesData } from "../data/certificatesData"
 
 // Memoized Components
 const Header = memo(() => (
@@ -112,8 +110,8 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 
 const AboutPage = () => {
   const [stats, setStats] = useState({
-    totalProjects: 0,
-    totalCertificates: 0,
+    totalProjects: 3,
+    totalCertificates: 8,
     YearExperience: 0,
   });
 
@@ -124,8 +122,8 @@ const AboutPage = () => {
       (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
 
     setStats({
-      totalProjects: projectsData.length,
-      totalCertificates: certificatesData.length,
+      totalProjects: 3,
+      totalCertificates: 8,
       YearExperience: experience
     });
   }, []);
@@ -159,7 +157,7 @@ const AboutPage = () => {
       icon: Code,
       color: "from-[#6366f1] to-[#a855f7]",
       value: totalProjects,
-      label: "Total Projects",
+      label: "TOTAL PROJECTS",
       description: "Innovative web solutions crafted",
       animation: "fade-right",
     },
@@ -167,7 +165,7 @@ const AboutPage = () => {
       icon: Award,
       color: "from-[#a855f7] to-[#6366f1]",
       value: totalCertificates,
-      label: "Certificates",
+      label: "CERTIFICATES",
       description: "Professional skills validated",
       animation: "fade-up",
     },
@@ -175,7 +173,7 @@ const AboutPage = () => {
       icon: Globe,
       color: "from-[#6366f1] to-[#a855f7]",
       value: YearExperience,
-      label: "Years of Experience",
+      label: "YEARS OF EXPERIENCE",
       description: "Continuous learning journey",
       animation: "fade-left",
     },
@@ -216,27 +214,27 @@ const AboutPage = () => {
               data-aos="fade-right"
               data-aos-duration="1500"
             >
-        Lulusan Teknik Informatika dengan kombinasi pengalaman lapangan yang kaya di industri manufaktur, otomotif, dan pengawasan data publik. Terbiasa bekerja dengan ketahanan fisik tinggi, disiplin waktu kerja shift, serta tanggap melakukan analisis data dan troubleshooting perangkat IT maupun mekanikal di lapangan.
+              Lulusan Teknik Informatika dengan kombinasi pengalaman lapangan yang kaya di industri manufaktur, otomotif, dan pengawasan data publik. Terbiasa bekerja dengan ketahanan fisik tinggi, disiplin waktu kerja shift, serta tanggap melakukan analisis data dan troubleshooting perangkat IT maupun mekanikal di lapangan.
             </p>
 
-     <div 
-        className="relative bg-gradient-to-br from-[#6366f1]/5 via-transparent to-[#a855f7]/5 border border-gradient-to-r border-[#6366f1]/30 rounded-2xl p-4 my-6 backdrop-blur-md shadow-2xl overflow-hidden"
-        data-aos="fade-up"
-        data-aos-duration="1700"
-      >
-        <div className="absolute top-2 right-4 w-16 h-16 bg-gradient-to-r from-[#6366f1]/20 to-[#a855f7]/20 rounded-full blur-xl"></div>
-        <div className="absolute -bottom-4 -left-2 w-12 h-12 bg-gradient-to-r from-[#a855f7]/20 to-[#6366f1]/20 rounded-full blur-lg"></div>
-        
-        <div className="absolute top-3 left-4 text-[#6366f1] opacity-30">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
-          </svg>
-        </div>
-        
-        <blockquote className="text-gray-300 text-center lg:text-left italic font-medium text-sm relative z-10 pl-6">
-          "Leveraging AI as a professional tool, not a replacement."
-        </blockquote>
-      </div>
+            <div 
+              className="relative bg-gradient-to-br from-[#6366f1]/5 via-transparent to-[#a855f7]/5 border border-gradient-to-r border-[#6366f1]/30 rounded-2xl p-4 my-6 backdrop-blur-md shadow-2xl overflow-hidden"
+              data-aos="fade-up"
+              data-aos-duration="1700"
+            >
+              <div className="absolute top-2 right-4 w-16 h-16 bg-gradient-to-r from-[#6366f1]/20 to-[#a855f7]/20 rounded-full blur-xl"></div>
+              <div className="absolute -bottom-4 -left-2 w-12 h-12 bg-gradient-to-r from-[#a855f7]/20 to-[#6366f1]/20 rounded-full blur-lg"></div>
+              
+              <div className="absolute top-3 left-4 text-[#6366f1] opacity-30">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                </svg>
+              </div>
+              
+              <blockquote className="text-gray-300 text-center lg:text-left italic font-medium text-sm relative z-10 pl-6">
+                "Leveraging AI as a professional tool, not a replacement."
+              </blockquote>
+            </div>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
               <a href="https://drive.google.com/file/d/1yQe85_oS5xj-8R5TxzCo530p09bGW1eA/view?usp=sharing" className="w-full lg:w-auto">
