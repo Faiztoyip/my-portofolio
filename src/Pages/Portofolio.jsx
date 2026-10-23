@@ -11,7 +11,7 @@ import CardProject from "../components/CardProject";
 import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Code, Award, Cpu, Users } from "lucide-react";
+import { Code, Award, Cpu, Users, X } from "lucide-react";
 import { projectsData } from "../data/projectsData";
 import { certificatesData } from "../data/certificatesData";
 
@@ -130,6 +130,7 @@ export default function FullWidthTabs() {
   const [certificates, setCertificates] = useState([]);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null); // State modal gambar sertifikat
 
   const isMobile = window.innerWidth < 768;
   const initialItems = isMobile ? 4 : 6;
@@ -326,7 +327,10 @@ export default function FullWidthTabs() {
                     data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                     data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
                   >
-                    <div className="relative group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 p-2 backdrop-blur-xl hover:border-purple-500/50 transition-all duration-300">
+                    <div 
+                      onClick={() => setSelectedImage(certificate.Img)}
+                      className="relative group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 p-2 backdrop-blur-xl hover:border-purple-500/50 transition-all duration-300 cursor-pointer"
+                    >
                       <img 
                         src={certificate.Img} 
                         alt={certificate.Title || "Certificate"} 
@@ -389,6 +393,28 @@ export default function FullWidthTabs() {
           </TabPanel>
         </SwipeableViews>
       </Box>
+
+      {/* MODAL POPUP PRATINJAU GAMBAR SERTIFIKAT */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 cursor-pointer"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-4xl w-full flex justify-center items-center" onClick={(e) => e.stopPropagation()}>
+            <button 
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-white bg-white/10 hover:bg-white/20 p-2 rounded-full backdrop-blur-md transition-all"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <img 
+              src={selectedImage} 
+              alt="Preview Certificate" 
+              className="max-h-[85vh] w-auto max-w-full rounded-2xl shadow-2xl border border-white/20 object-contain"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
