@@ -64,9 +64,12 @@ const ProfileImage = memo(() => (
   </div>
 ));
 
-const StatCard = memo(({ icon: Icon, color, value, label, description, animation }) => (
-  <div data-aos={animation} data-aos-duration={1300} className="relative group">
-    <div className="relative z-10 bg-gray-900/50 backdrop-blur-lg rounded-2xl p-6 border border-white/10 overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full flex flex-col justify-between">
+const StatCard = memo(({ icon: Icon, color, value, label, description, animation, link, onClick }) => {
+  const CardContent = (
+    <div 
+      onClick={onClick}
+      className="relative z-10 bg-gray-900/50 backdrop-blur-lg rounded-2xl p-6 border border-white/10 overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full flex flex-col justify-between cursor-pointer"
+    >
       <div className={`absolute -z-10 inset-0 bg-gradient-to-br ${color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
       
       <div className="flex items-center justify-between mb-4">
@@ -105,10 +108,22 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
         </div>
       </div>
     </div>
-  </div>
-));
+  );
+
+  return (
+    <div data-aos={animation} data-aos-duration={1300} className="relative group">
+      {link ? (
+        <a href={link}>{CardContent}</a>
+      ) : (
+        CardContent
+      )}
+    </div>
+  );
+});
 
 const AboutPage = () => {
+  const [showRencanaModal, setShowRencanaModal] = useState(false);
+
   useEffect(() => {
     const initAOS = () => {
       AOS.init({
@@ -139,6 +154,7 @@ const AboutPage = () => {
       label: "TOTAL PROJECTS",
       description: "Innovative web solutions crafted",
       animation: "fade-right",
+      link: "#Portofolio", // Hanya proyek yang mengarah ke Portofolio
     },
     {
       icon: Award,
@@ -147,6 +163,7 @@ const AboutPage = () => {
       label: "CERTIFICATES",
       description: "Professional skills validated",
       animation: "fade-up",
+      link: "#Certificates", // Diarahkan ke section Certificates (atau ganti sesuai ID section sertifikat Anda)
     },
     {
       icon: Target,
@@ -155,6 +172,7 @@ const AboutPage = () => {
       label: "PENGEMBANGAN DIRI",
       description: "Sertifikasi & analitik tingkat lanjut",
       animation: "fade-left",
+      onClick: () => setShowRencanaModal(true), // Buka pop-up Rencana Pengembangan Diri
     },
   ], []);
 
@@ -240,14 +258,48 @@ const AboutPage = () => {
           <ProfileImage />
         </div>
 
-        <a href="#Portofolio">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 cursor-pointer">
-            {statsData.map((stat) => (
-              <StatCard key={stat.label} {...stat} />
-            ))}
-          </div>
-        </a>
+        {/* Masing-masing kartu memiliki navigasi tersendiri */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+          {statsData.map((stat) => (
+            <StatCard key={stat.label} {...stat} />
+          ))}
+        </div>
       </div>
+
+      {/* POP-UP MODAL RENCANA PENGEMBANGAN DIRI */}
+      {showRencanaModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+          <div className="bg-[#12122b] border border-white/10 rounded-2xl p-6 md:p-8 max-w-2xl w-full text-left relative shadow-2xl space-y-6">
+            <button 
+              onClick={() => setShowRencanaModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold p-2"
+            >
+              ✕
+            </button>
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
+              RENCANA PENGEMBANGAN DIRI
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
+              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                <h4 className="font-bold text-white mb-1">HARD SKILLS</h4>
+                <p>Memperdalam BI tools (Tableau / Power BI), advanced ML, dan SQL tingkat lanjut.</p>
+              </div>
+              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                <h4 className="font-bold text-white mb-1">SERTIFIKASI</h4>
+                <p>Menargetkan sertifikasi: Google Data Analytics, Microsoft Certified atau sejenisnya.</p>
+              </div>
+              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                <h4 className="font-bold text-white mb-1">PORTOFOLIO & PUBLIKASI</h4>
+                <p>Membangun proyek analisis data terapan secara berkala dan berbagi hasil di GitHub.</p>
+              </div>
+              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                <h4 className="font-bold text-white mb-1">PENGEMBANGAN PROFESIONAL</h4>
+                <p>Ikut komunitas data, hackathon, dan kerja sama lintas fungsi untuk networking.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         @keyframes float {
