@@ -12,7 +12,6 @@ import CardProject from "../components/CardProject";
 import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Certificate from "../components/Certificate";
 import { Code, Award, Cpu, Users } from "lucide-react";
 import { projectsData } from "../data/projectsData";
 import { certificatesData } from "../data/certificatesData";
@@ -317,7 +316,13 @@ export default function FullWidthTabs() {
                     data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                     data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
                   >
-                    <Certificate ImgSertif={certificate.Img} Title={certificate.Title} />
+                    <div className="relative group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 p-2 backdrop-blur-xl hover:border-purple-500/50 transition-all duration-300">
+                      <img 
+                        src={certificate.Img} 
+                        alt={certificate.Title || "Certificate"} 
+                        className="w-full h-auto rounded-xl object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -335,7 +340,6 @@ export default function FullWidthTabs() {
           {/* Tab 2: Hard Skills */}
           <TabPanel value={value} index={2} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              {/* Menggunakan flexbox wrapping agar item terakhir otomatis berada di tengah */}
               <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-6xl">
                 {hardSkills.map((stack, index) => (
                   <div 
