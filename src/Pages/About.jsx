@@ -1,5 +1,5 @@
-import React, { useEffect, useState, memo, useMemo } from "react"
-import { FileText, Code, Award, Target, Sparkles } from "lucide-react"
+import React, { useEffect, useState, memo } from "react"
+import { FileText, Code, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -64,55 +64,7 @@ const ProfileImage = memo(() => (
   </div>
 ));
 
-const StatCard = memo(({ icon: Icon, color, value, label, description, animation, onClick }) => (
-  <div data-aos={animation} data-aos-duration={1300} className="relative group">
-    <div 
-      onClick={onClick}
-      className="relative z-10 bg-gray-900/50 backdrop-blur-lg rounded-2xl p-6 border border-white/10 overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full flex flex-col justify-between cursor-pointer"
-    >
-      <div className={`absolute -z-10 inset-0 bg-gradient-to-br ${color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
-      
-      <div className="flex items-center justify-between mb-4">
-        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white/10 transition-transform group-hover:rotate-6">
-          <Icon className="w-8 h-8 text-white" />
-        </div>
-        <span 
-          className="text-2xl sm:text-3xl font-bold text-white truncate max-w-[180px]"
-          data-aos="fade-up-left"
-          data-aos-duration="1500"
-          data-aos-anchor-placement="top-bottom"
-        >
-          {value}
-        </span>
-      </div>
-
-      <div>
-        <p 
-          className="text-sm uppercase tracking-wider text-gray-300 mb-2 font-semibold"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-anchor-placement="top-bottom"
-        >
-          {label}
-        </p>
-        <div>
-          <p 
-            className="text-xs text-gray-400"
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-anchor-placement="top-bottom"
-          >
-            {description}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-));
-
 const AboutPage = () => {
-  const [showRencanaModal, setShowRencanaModal] = useState(false);
-
   useEffect(() => {
     const initAOS = () => {
       AOS.init({
@@ -142,36 +94,6 @@ const AboutPage = () => {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  const statsData = useMemo(() => [
-    {
-      icon: Code,
-      color: "from-[#6366f1] to-[#a855f7]",
-      value: "3",
-      label: "TOTAL PROJECTS",
-      description: "Innovative web solutions crafted",
-      animation: "fade-right",
-      onClick: () => handleOpenSection(0),
-    },
-    {
-      icon: Award,
-      color: "from-[#a855f7] to-[#6366f1]",
-      value: "8",
-      label: "CERTIFICATES",
-      description: "Professional skills validated",
-      animation: "fade-up",
-      onClick: () => handleOpenSection(1),
-    },
-    {
-      icon: Target,
-      color: "from-[#6366f1] to-[#a855f7]",
-      value: "Next Goal",
-      label: "PENGEMBANGAN DIRI",
-      description: "Sertifikasi & analitik tingkat lanjut",
-      animation: "fade-left",
-      onClick: () => setShowRencanaModal(true),
-    },
-  ], []);
 
   return (
     <div
@@ -253,47 +175,7 @@ const AboutPage = () => {
 
           <ProfileImage />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
-          {statsData.map((stat) => (
-            <StatCard key={stat.label} {...stat} />
-          ))}
-        </div>
       </div>
-
-      {showRencanaModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-          <div className="bg-[#12122b] border border-white/10 rounded-2xl p-6 md:p-8 max-w-2xl w-full text-left relative shadow-2xl space-y-6">
-            <button 
-              onClick={() => setShowRencanaModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold p-2"
-            >
-              ✕
-            </button>
-            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
-              RENCANA PENGEMBANGAN DIRI
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
-              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
-                <h4 className="font-bold text-white mb-1">HARD SKILLS</h4>
-                <p>Memperdalam BI tools (Tableau / Power BI), advanced ML, dan SQL tingkat lanjut.</p>
-              </div>
-              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
-                <h4 className="font-bold text-white mb-1">SERTIFIKASI</h4>
-                <p>Menargetkan sertifikasi: Google Data Analytics, Microsoft Certified atau sejenisnya.</p>
-              </div>
-              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
-                <h4 className="font-bold text-white mb-1">PORTOFOLIO & PUBLIKASI</h4>
-                <p>Membangun proyek analisis data terapan secara berkala dan berbagi hasil di GitHub.</p>
-              </div>
-              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
-                <h4 className="font-bold text-white mb-1">PENGEMBANGAN PROFESIONAL</h4>
-                <p>Ikut komunitas data, hackathon, dan kerja sama lintas fungsi untuk networking.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       <style jsx>{`
         @keyframes float {
