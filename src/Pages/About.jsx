@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo, useMemo } from "react"
-import { FileText, Code, Award, Target, ArrowUpRight, Sparkles } from "lucide-react"
+import { FileText, Code, Award, Target, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -95,7 +95,7 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
         >
           {label}
         </p>
-        <div className="flex items-center justify-between">
+        <div>
           <p 
             className="text-xs text-gray-400"
             data-aos="fade-up"
@@ -104,7 +104,6 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
           >
             {description}
           </p>
-          <ArrowUpRight className="w-4 h-4 text-white/50 group-hover:text-white transition-colors flex-shrink-0 ml-2" />
         </div>
       </div>
     </div>
