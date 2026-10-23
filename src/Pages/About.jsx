@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo, useMemo } from "react"
-import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles } from "lucide-react"
+import { FileText, Code, Award, Target, ArrowUpRight, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -74,7 +74,7 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
           <Icon className="w-8 h-8 text-white" />
         </div>
         <span 
-          className="text-4xl font-bold text-white"
+          className="text-2xl sm:text-3xl font-bold text-white truncate max-w-[180px]"
           data-aos="fade-up-left"
           data-aos-duration="1500"
           data-aos-anchor-placement="top-bottom"
@@ -85,7 +85,7 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 
       <div>
         <p 
-          className="text-sm uppercase tracking-wider text-gray-300 mb-2"
+          className="text-sm uppercase tracking-wider text-gray-300 mb-2 font-semibold"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-anchor-placement="top-bottom"
@@ -101,7 +101,7 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
           >
             {description}
           </p>
-          <ArrowUpRight className="w-4 h-4 text-white/50 group-hover:text-white transition-colors" />
+          <ArrowUpRight className="w-4 h-4 text-white/50 group-hover:text-white transition-colors flex-shrink-0 ml-2" />
         </div>
       </div>
     </div>
@@ -109,27 +109,6 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 ));
 
 const AboutPage = () => {
-  const [stats, setStats] = useState({
-    totalProjects: 3,
-    totalCertificates: 8,
-    YearExperience: 0,
-  });
-
-  useEffect(() => {
-    const startDate = new Date("2021-11-06");
-    const today = new Date();
-    const experience = today.getFullYear() - startDate.getFullYear() -
-      (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
-
-    setStats({
-      totalProjects: 3,
-      totalCertificates: 8,
-      YearExperience: experience
-    });
-  }, []);
-
-  const { totalProjects, totalCertificates, YearExperience } = stats;
-
   useEffect(() => {
     const initAOS = () => {
       AOS.init({
@@ -156,7 +135,7 @@ const AboutPage = () => {
     {
       icon: Code,
       color: "from-[#6366f1] to-[#a855f7]",
-      value: totalProjects,
+      value: "3",
       label: "TOTAL PROJECTS",
       description: "Innovative web solutions crafted",
       animation: "fade-right",
@@ -164,20 +143,20 @@ const AboutPage = () => {
     {
       icon: Award,
       color: "from-[#a855f7] to-[#6366f1]",
-      value: totalCertificates,
+      value: "8",
       label: "CERTIFICATES",
       description: "Professional skills validated",
       animation: "fade-up",
     },
     {
-      icon: Globe,
+      icon: Target,
       color: "from-[#6366f1] to-[#a855f7]",
-      value: YearExperience,
-      label: "YEARS OF EXPERIENCE",
-      description: "Continuous learning journey",
+      value: "Next Goal",
+      label: "PENGEMBANGAN DIRI",
+      description: "Sertifikasi & analitik tingkat lanjut",
       animation: "fade-left",
     },
-  ], [totalProjects, totalCertificates, YearExperience]);
+  ], []);
 
   return (
     <div
